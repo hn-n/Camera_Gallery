@@ -12,18 +12,11 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   File _image;
 
-  Future getImage() async {
-    var image = await ImagePicker.pickImage(source: ImageSource.camera);
+  Future getImage(ImageSource src) async {
+    var image = await ImagePicker.pickImage(source: src);
 
     setState(() {
       _image = image;
-    });
-  }
-
-  Future getGalleryImg() async {
-    var selected_gallery_img = await ImagePicker.pickImage(source: ImageSource.gallery);
-    setState(() {
-      _image = selected_gallery_img;
     });
   }
 
@@ -48,8 +41,8 @@ class _MyHomePageState extends State<MyHomePage> {
               children: <Widget>[
                  Padding(padding: EdgeInsets.all(8.0)),
                 _imageChecker(),
-                RaisedButton(child: Icon(Icons.photo_camera), onPressed: getImage),
-                RaisedButton(child: Icon(Icons.photo_library), onPressed: getGalleryImg)
+                RaisedButton(child: Icon(Icons.photo_camera), onPressed: () { getImage(ImageSource.camera); } ),
+                RaisedButton(child: Icon(Icons.photo_library), onPressed: () { getImage(ImageSource.gallery);} )
               ],
             ),
           ),
